@@ -4,6 +4,10 @@ from langchain.schema import SystemMessage, HumanMessage, AIMessage
 import os
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
+import uvicorn
+from app.api.titanic.model.titanic_model import TitanicModel
+from app.main_router import router
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(BASE_DIR, ".env"))
@@ -19,6 +23,7 @@ class Response(BaseModel):
 
 app = FastAPI()
 
+app.include_router(router)
 
 origins = ["*"]
 
@@ -39,7 +44,7 @@ def read_root():
 def read_item(item_id: int, q: str = None):
     return {"item_id": item_id, "q": q}
 
-@app.post("/chat")
+#@app.post("/chat")
 def chatting(req: Request):
     print(req)
 
@@ -61,4 +66,8 @@ def chatting(req: Request):
     #     AIMessage(content="서울 입니다.", type="ai"),
     # ]
     # print('[답변] : ', chat.predict_messages(message))
+
     return Response(answer=chat.predict(req.question))
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="localhost", port=8000)
