@@ -5,7 +5,6 @@ import os
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 import uvicorn
-from app.api.titanic.model.titanic_model import TitanicModel
 from app.main_router import router
 
 
@@ -23,7 +22,7 @@ class Response(BaseModel):
 
 app = FastAPI()
 
-app.include_router(router)
+app.include_router(router, prefix="/api")
 
 origins = ["*"]
 
