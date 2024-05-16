@@ -39,7 +39,7 @@ export default function Home() {
 
   return (
     <>
- <div className="bg-cover h-[100vh] flex flex-col items-center justify-center px-5 lg:px-0" style={{ backgroundImage: "url('https://cdn.pixabay.com/photo/2024/03/09/17/27/ai-generated-8623019_1280.jpg')",backgroundSize: "100% 100%", backdropFilter: "blur(30px)", }}>
+ <div className="bg-cover h-[100vh] flex flex-col items-center justify-center px-5 lg:px-0" style={{ backgroundImage: "url('https://cdn.pixabay.com/photo/2022/08/15/12/13/robot-7387740_1280.jpg')",backgroundSize: "100% 100%", backdropFilter: "blur(30px)", }}>
   <h1 className="text-3xl xl:text-4xl font-bold text-white" style={{marginTop: "300px", marginBottom: "70px"}}><span style={{ fontSize: "50px" }}>무엇이든 물어보세요!</span></h1>
   <div className="flex flex-col gap-4 mt-10 mb-10" style={{marginTop: "200px", marginBottom: "50px"}}>
     <form onSubmit={handleSubmit(onSubmit)}>
