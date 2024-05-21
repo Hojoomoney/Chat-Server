@@ -1,7 +1,7 @@
 import json
 import os
 import pandas as pd
-from example.crime_abstract import PrinterBase, ReaderBase, ScraperBase
+from example.crime_abstract import EditorBase, PrinterBase, ReaderBase, ScraperBase
 from icecream import ic
 from selenium import webdriver
 import googlemaps
@@ -23,16 +23,16 @@ class Reader(ReaderBase):
     def print(self, message):
         ic(message)
 
-    def csv(self, file) -> object:
+    def csv(self, file) -> pd.DataFrame:
         return pd.read_csv(f'{file}.csv', encoding='utf-8', thousands=',')
     
-    def xls(self, file) -> object:
-        return pd.read_excel(f'{file}.xls', encoding='utf-8', thousands=',')
+    def xls(self, file, header, usecols) -> pd.DataFrame:
+        return pd.read_excel(f'{file}.xls',header=header, usecols = usecols)
     
-    def json(self, file) -> object:
+    def json(self, file) -> pd.DataFrame:
         return json.load(open(f'{file}.json', encoding='utf-8'))
     
-    def gmaps(self, api_key) -> object:
+    def gmaps(self, api_key) -> pd.DataFrame:
         return googlemaps.Client(key=api_key)
 
 class Scraper(ScraperBase):
@@ -46,3 +46,8 @@ class Scraper(ScraperBase):
         driver.get(url)
         driver.find_element_by_css_selector(selector).send_keys(data)
         driver.find_element_by_css_selector(selector).submit()
+
+class Editor(EditorBase):
+    def dropna(self, this: pd.DataFrame) -> pd.DataFrame:
+        this = this.dropna()
+        return this
